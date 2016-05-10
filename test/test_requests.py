@@ -20,7 +20,7 @@ def test_random_requests():
             'language': ['NL', 'EN', 'GE'],
             'adtype': ['skyscraper', 'square', 'banner'],
             'color': ['green', 'blue', 'red', 'black', 'white'],
-            'price': map(lambda x: 1+float(x),range(50))
+            'price': map(lambda x: 1+float(x)/10.,range(490))
         }
         # Random choice
         offer = {key: np.random.choice(val) for key, val in offer.iteritems()}
@@ -35,7 +35,6 @@ def test_random_requests():
 
 
         print result, offer['price'] * result['success']
-
 
 if __name__ == "__main__":
     test_random_requests()
