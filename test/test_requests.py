@@ -1,7 +1,6 @@
 import sys
 import numpy as np
 sys.path.append('../')
-import time
 
 from aiws import api
 api.authenticate('test','test')
@@ -12,9 +11,8 @@ def test_random_requests():
 
     for request_number in xrange(1000):
 
-        s = time.time()
         context = api.get_context(run_id, request_number)
-        #print context['context'].values(), time.time()-s
+        print context['context'].values()
 
 
         offer = {
@@ -26,9 +24,8 @@ def test_random_requests():
         }
         # Random choice
         offer = {key: np.random.choice(val) for key, val in offer.iteritems()}
-        #print offer
+        print offer
 
-        s = time.time()
         result = api.serve_page(run_id, request_number,
             header=offer['header'],
             language=offer['language'],
@@ -37,7 +34,7 @@ def test_random_requests():
             price=offer['price'])
 
 
-        #print result, offer['price'] * result['success'], time.time()-s
+        print result, offer['price'] * result['success']
 
 
 if __name__ == "__main__":

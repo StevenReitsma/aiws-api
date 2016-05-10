@@ -1,7 +1,7 @@
 import requests
 import json
 
-HOSTNAME = "10.0.0.10"
+HOSTNAME = "127.0.0.1"
 PORT = "80"
 SERVER = "http://"+HOSTNAME+":"+PORT
 
@@ -27,9 +27,6 @@ def validate_ids(run_id, request_number):
     if request_number < 0 or request_number > 9999:
         raise ValueError("request_number has an invalid value of {}".format(request_number))
 
-
-
-import time
 def get_context(run_id, request_number):
     validate_credentials()
     validate_ids(run_id,request_number)
@@ -41,18 +38,12 @@ def get_context(run_id, request_number):
         "request_number": request_number
     }
 
-    s = time.time()
-    r = requests.get(SERVER+"/get_context")#params=params)
-    print time.time() - s
-    print r.text
+    r = requests.get(SERVER+"/get_context", params=params)
     if not r.status_code == 200:
         print r.text
         raise Exception("Something went wrong, see message above.")
     else:
-
-        j = r.json()
-
-        return j
+        return r.json()
 
 def serve_page(run_id, request_number, header, language, adtype, color, price):
     validate_credentials()
