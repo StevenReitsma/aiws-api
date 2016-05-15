@@ -1,11 +1,9 @@
 import requests
 import json
 
-HOSTNAME = "127.0.0.1"
+HOSTNAME = "spider-ai.ddns.net"
 PORT = "80"
-SERVER = "http://"+HOSTNAME+":"+PORT
-
-
+SERVER = "http://" + HOSTNAME + ":" + PORT
 
 TEAM_PASSWORD = ""
 TEAM_NAME = ""
@@ -38,7 +36,7 @@ def get_context(run_id, request_number):
         "request_number": request_number
     }
 
-    r = requests.get(SERVER+"/get_context", params=params)
+    r = requests.get(SERVER + "/get_context", params=params)
     if not r.status_code == 200:
         print r.text
         raise Exception("Something went wrong, see message above.")
@@ -61,14 +59,21 @@ def serve_page(run_id, request_number, header, language, adtype, color, price):
         "price": price
     }
 
-    r = requests.post(SERVER+"/serve_page", data=data)
+    r = requests.post(SERVER + "/serve_page", data=data)
     if not r.status_code == 200:
         print r.text
         raise Exception("Something went wrong, see message above.")
     else:
         return r.json()
 
-
-if __name__ == "__main__":
-    authenticate("test","test")
-    serve_page(0,0,15,"EN","skyscraper","green",673.55)
+def reset_leaderboard():
+    data = {
+        "team_id": TEAM_NAME,
+        "team_password": TEAM_PASSWORD
+    }
+    r = requests.post(SERVER + "/reset_leaderboard", data=data)
+    if not r.status_code == 200:
+        print r.text
+        raise Exception("Something went wrong, see message above.")
+    else:
+        return r.json()

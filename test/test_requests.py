@@ -3,11 +3,10 @@ import numpy as np
 sys.path.append('../')
 
 from aiws import api
-api.authenticate('test','test')
+api.authenticate('TEAM NAME','TEAM PASSWORD')
 
 def test_random_requests():
     run_id = 0
-
 
     for request_number in xrange(1000):
 
@@ -24,7 +23,6 @@ def test_random_requests():
         }
         # Random choice
         offer = {key: np.random.choice(val) for key, val in offer.iteritems()}
-        print offer
 
         result = api.serve_page(run_id, request_number,
             header=offer['header'],
@@ -32,7 +30,6 @@ def test_random_requests():
             adtype=offer['adtype'],
             color=offer['color'],
             price=offer['price'])
-
 
         print result, offer['price'] * result['success']
 
