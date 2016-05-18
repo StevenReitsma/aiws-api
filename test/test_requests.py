@@ -8,7 +8,10 @@ api.authenticate('TEAM NAME','TEAM PASSWORD')
 def test_random_requests():
     run_id = 0
 
-    for request_number in xrange(1000):
+    cumulative_reward = 0
+    n = 1000
+
+    for request_number in xrange(n):
 
         context = api.get_context(run_id, request_number)
         print context['context'].values()
@@ -32,6 +35,10 @@ def test_random_requests():
             price=offer['price'])
 
         print result, offer['price'] * result['success']
+        cumulative_reward += offer['price'] * result['success']
+
+    mean_reward = cumulative_reward / n
+    print "Mean reward: %.2f euro" % mean_reward
 
 if __name__ == "__main__":
     test_random_requests()
