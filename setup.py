@@ -3,7 +3,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
      name='rlclientbdr',
-     version='1.0',
+     version='1.1',
      scripts=[],
      author="Robbert van der Gugten",
      author_email="robbert.van.der.gugten@bigdatarepublic.nl",
