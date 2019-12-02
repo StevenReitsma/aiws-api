@@ -1,14 +1,11 @@
 import requests
 
-HOSTNAME = "192.168.3.9"
-PORT = "80"
-SERVER = "http://" + HOSTNAME + ":" + PORT + '/rl'
-
 
 class RLClient:
-    def __init__(self, name, password):
+    def __init__(self, name, password, hostname="10.216.3.238"):
         self.TEAM_NAME = name
         self.TEAM_PASSWORD = password
+        self.SERVER = "http://" + hostname + ":" + PORT + '/rl'
 
     @staticmethod
     def validate_ids(run_id, request_number):
@@ -28,7 +25,7 @@ class RLClient:
             "request_number": request_number
         }
 
-        r = requests.get(SERVER + "/get_context", params=params)
+        r = requests.get(self.SERVER + "/get_context", params=params)
         if not r.status_code == 200:
             print(r.text)
             raise Exception("Something went wrong, see message above.")
@@ -50,7 +47,7 @@ class RLClient:
             "price": price
         }
 
-        r = requests.post(SERVER + "/serve_page", data=data)
+        r = requests.post(self.SERVER + "/serve_page", data=data)
         if not r.status_code == 200:
             print(r.text)
             raise Exception("Something went wrong, see message above.")
@@ -62,7 +59,7 @@ class RLClient:
             "team_id": self.TEAM_NAME,
             "team_password": self.TEAM_PASSWORD
         }
-        r = requests.post(SERVER + "/reset_leaderboard", data=data)
+        r = requests.post(self.SERVER + "/reset_leaderboard", data=data)
         if not r.status_code == 200:
             print(r.text)
             raise Exception("Something went wrong, see message above.")
