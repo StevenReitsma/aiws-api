@@ -5,7 +5,7 @@ class RLClient:
     def __init__(self, name, password, hostname="10.216.3.238"):
         self.TEAM_NAME = name
         self.TEAM_PASSWORD = password
-        self.SERVER = "http://" + hostname + ":" + PORT + '/rl'
+        self.SERVER = "http://" + hostname + ":80/rl"
 
     @staticmethod
     def validate_ids(run_id, request_number):
